@@ -5,3 +5,7 @@ Le projet peut aussi être suivi via un Trello qui référence l'avancée du pro
 La première étape consiste en la visualisation de l'état actuel des choses et  l'évolution du champ des producteurs d'Enercoop par rapport au passé pour ensuite mieux prédire le futur sur des bases mathématiques plus solide. 
 
 On va tester notre nouvelle branche pour s'exercer ! 
+
+On change via pycharm
+
+
