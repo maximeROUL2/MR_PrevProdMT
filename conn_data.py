@@ -15,10 +15,11 @@ class SqlQuery:
 
     def __init__(self, query):
         self.query = query
-        self.database = "polen"
-        self.user = "polen"
         self.host = "data-db.enercoop.infra"
-        self.port = "5432"
+        self.dbname = "polen"
+        self.user = "polen"
+        self.pwd = "kSnRLvf0KB32M0m"
+        self.port = 5432
 
     @staticmethod
     def yield_query_by_chunks(query, chunksize, pg_user, pg_pass, pg_host, pg_port, db_name):
@@ -49,7 +50,11 @@ class SqlQuery:
 
         return data
 
-    def query_psql(self):
+    def query_psql(self): # TODO corriger cette fonction qui ne marche pas
+        conn = psycopg2.connect("host='{}' port={} dbname='{}' user={} password={}".format(self.host, self.port, self.dbname, self.user, self.pwd))
+        dat = sqlio.read_sql_query(self.query, conn)  # type: dataframe
+        conn.close()
+        return dat
 
 
     @staticmethod
@@ -61,7 +66,7 @@ class SqlQuery:
 
 def main():
     # sql = SqlQuery()
-    data = SqlQuery.simple_query_pyscopg2("SELECT * FROM erreurs_prev_reel limit 10")
+    data = SqlQuery.query_psql("Select * from producteurs")
     print(data)
     # SqlQuery.yield_query_by_chunks("SELECT * FROM producteurs", 10, "polen", "kSnRLvf0KB32M0m", "data-db.enercoop.infra", 5432, "polen")
 
