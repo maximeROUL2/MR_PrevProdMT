@@ -3,10 +3,8 @@
     database = polen
     mot de passe = kSnRLvf0KB32M0m
 """
-from sqlalchemy import create_engine
-import psycopg2
 import pandas
-
+import psycopg2
 
 class SqlQuery:
 
@@ -21,24 +19,28 @@ class SqlQuery:
 
     @staticmethod
     def simple_query_pyscopg2(query):
-        print("ok")
-        conn = psycopg2.connect(database="polen",
-                                user="polen",
-                                host="data-db.enercoop.infra",
-                                password="kSnRLvf0KB32M0m",
-                                port=5432)
+        try :
+            conn = psycopg2.connect(database="polen",
+                                    user="polen",
+                                    host="data-db.enercoop.infra",
+                                    password="kSnRLvf0KB32M0m",
+                                    port=5432)
 
-        # Create a cursor. The cursor allows you to execute database queries.
-        cur = conn.cursor()
+            # Create a cursor. The cursor allows you to execute database queries.
+            cur = conn.cursor()
 
-        # Testing
-        cur.execute(query)
-        print(type(cur.fetchall()))
-        print(len(cur.fetchall()))
-        print(cur.fetchall())
+            # Testing
+            cur.execute(query)
+            data = pandas.DataFrame(cur.fetchall())
 
-        # Close connection
-        conn.close()
+            # Close connection
+            conn.close()
+
+            return data
+        except:
+            print("La requete SQL n'a pas fonctionné voir simple_query_psycopg2")
+
+
 
     @staticmethod
     def read_csv(file):
@@ -49,7 +51,6 @@ class SqlQuery:
 
 
 # sql = SqlQuery()
-# SqlQuery.simple_query_pyscopg2("SELECT * FROM rp12 LIMIT 100")
+data = SqlQuery.simple_query_pyscopg2("SELECT * FROM erreurs_prev_reel")
+print(data)
 # SqlQuery.yield_query_by_chunks("SELECT * FROM producteurs", 10, "polen", "kSnRLvf0KB32M0m", "data-db.enercoop.infra", 5432, "polen")
-
-data = SqlQuery.read_csv("producteurs_2020_05_04.csv")
