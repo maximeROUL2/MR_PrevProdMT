@@ -3,15 +3,24 @@ Nouvelle note 1
 
 Select * from rp12_mensuels limit 100
 
-CREATE MATERIALIZED VIEW public.pvpm_mensuel
-TABLESPACE pg_default
-AS
- SELECT producteurs.padt,
+# création de pvpm pour traitement
+CREATE MATERIALIZED VIEW pvpm2 AS
+
+SELECT
+ 	producteurs.padt,
     pvpm.date_start AS mois,
-    pvpm.volume_previsionnel_kwh
-   FROM producteurs_volumes_previsionnels_par_mois pvpm,
+    pvpm.volume_previsionnel_kwh,
+	type_de_centrale
+   FROM producteurs_volumes_previsionnels_par_mois as pvpm,
     producteurs
   WHERE pvpm.identifiant_centrale = producteurs.identifiant_centrale
+  ORDER BY producteurs.padt, pvpm.date_start
+
+
+   FROM producteurs_volumes_previsionnels_par_mois pvpm,
+    producteurs, rp12_mensuels as rp12
+  WHERE pvpm.identifiant_centrale = producteurs.identifiant_centrale and cast(rp12.padt as text) = pvpm.identifiant_centrale
+  and rp12.month = pvpm.date_start
   GROUP BY producteurs.padt, pvpm.date_start, pvpm.volume_previsionnel_kwh
   ORDER BY producteurs.padt, pvpm.date_start
 WITH DATA;
