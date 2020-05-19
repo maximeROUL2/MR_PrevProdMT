@@ -21,3 +21,7 @@ if __name__ == "__main__":
 - TUtilisation d'une machine virtuelle qui centralise les versions des biliothéques dans un fichier requirements.txt
 
 - En utilisant pycharm on respecte les normes python PIP8 
+
+- Utilisation de Git Régulièrement pour versionner et référencer l'avancé du travail 
+
+- UNE REGLE : Simplicité de la Documentation et possibilité de MAJ rapide en production 
