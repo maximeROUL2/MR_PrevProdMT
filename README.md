@@ -8,4 +8,20 @@ On va tester notre nouvelle branche pour s'exercer !
 
 On change via pycharm
 
+# Charte du code 
 
+- Tous les objets qui peuvent être réutiliser de nombreuses fois sont dans la bibliothèque "tools"
+
+- Un fichier = une classe + une éventuelle fonction main et un appel de cette fonction avec la condition
+
+if __name__ == "__main__":
+
+- Des tests unitaires sur chaque objet / test d'erreurs régulièrement (try / except)
+
+- TUtilisation d'une machine virtuelle qui centralise les versions des biliothéques dans un fichier requirements.txt
+
+- En utilisant pycharm on respecte les normes python PIP8 
+
+- Utilisation de Git Régulièrement pour versionner et référencer l'avancé du travail 
+
+- UNE REGLE : Simplicité de la Documentation et possibilité de MAJ rapide en production 
