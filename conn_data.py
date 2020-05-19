@@ -59,7 +59,7 @@ class SqlQuery:
 
     @staticmethod
     def read_csv(file):
-        data = pandas.read_csv("data_db/" + file)
+        data = pandas.read_csv("Data/" + file)
 
         return data
 
