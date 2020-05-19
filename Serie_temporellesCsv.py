@@ -1,13 +1,17 @@
+from math import sqrt
+
 import matplotlib
+import statsmodels
 import statsmodels.api as sm
 from conn_data import SqlQuery
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
+from sklearn.metrics import mean_squared_error
 
 """
-Entree : file = le nom du fichier en csv qui doit être mis dans le dossier Data
+Entree : dataframe = la dataframe globale à analyser
         NomColoneDate = le str de la colone lié à la date 
         analyse = la colone à analyser par les graphiques des séries temporelles
         
@@ -19,10 +23,11 @@ Sortie : Graphique_production = affichage simple de la série
          Holt_Winters = Prediction celon Holt-Winters de la série
 """
 
+
 class serie_temporelles_csv_affichage():
 
-    def __init__(self, file, nomColoneDate, coloneAnalyser):
-        self.data = SqlQuery.read_csv(file)
+    def __init__(self, dataframe, nomColoneDate, coloneAnalyser):
+        self.data = dataframe
         self.date = self.data[nomColoneDate]
         self.analyse = self.data[coloneAnalyser]
         self.analyseBis = self.data[[nomColoneDate, coloneAnalyser]]
@@ -35,13 +40,30 @@ class serie_temporelles_csv_affichage():
         result = sm.tsa.seasonal_decompose(self.analyse, model='add', period=12)
         return result.trend, result.seasonal[0:11], result.resid, result.observed
 
-    def holt_winters(self):
+    def holt_winters(self, nbpredictions):
         plt.figure()
         HW = ExponentialSmoothing(self.analyse,
-                                    seasonal_periods=12, trend='add', seasonal='add', damped=True).fit(use_boxcox=True)
+                                  seasonal_periods=12, trend='add', seasonal='add', damped=True).fit(use_boxcox=True)
 
         self.data['Production'].plot(style='--', marker='o', color='black', legend=True)
         HW.forecast(12).plot(style='--', marker='o', color='green', legend=True)
+
+        return HW.forecast(nbpredictions)
+
+    def analyse_erreur_holt_winters(self, nbpredictions):
+        HW = ExponentialSmoothing(self.analyse[:-nbpredictions],
+                                  seasonal_periods=12, trend='add', seasonal='add', damped=True).fit(use_boxcox=True)
+
+        predictions = HW.forecast(nbpredictions)
+        reel = self.analyse.tail(nbpredictions)
+
+        erreur_MSE = (1/nbpredictions) * abs(predictions - reel).sum()
+        erreur_RMSE = statsmodels.tools.eval_measures.rmse(predictions, reel)
+
+        erreur_purcent_RMSE = erreur_RMSE * nbpredictions / (predictions + reel).sum()
+        erreur_purcent_MSE = erreur_MSE * nbpredictions / (predictions + reel).sum()
+
+        return erreur_purcent_MSE, erreur_purcent_RMSE, erreur_RMSE, erreur_MSE
 
     def graphique_prod(self):
         self.analyseBis.set_index("Date", inplace=True)
@@ -49,10 +71,11 @@ class serie_temporelles_csv_affichage():
 
 
 def main():
-    df = serie_temporelles_csv_affichage('classeur.csv', 'Date', 'Production')
+    df = serie_temporelles_csv_affichage(SqlQuery.read_csv('classeur.csv'), 'Date', 'Production')
+    print(df.analyse_erreur_holt_winters(24))
     df.graphique_prod()
     df.decompose_affichage()
-    df.holt_winters()
+    df.holt_winters(24)
     plt.show()
 
 
