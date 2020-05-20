@@ -58,8 +58,8 @@ class SqlQuery:
 
 
     @staticmethod
-    def read_csv(file):
-        data = pandas.read_csv("Data/" + file)
+    def read_csv(chemin, file):
+        data = pandas.read_csv(chemin + file)
 
         return data
 
@@ -67,6 +67,7 @@ class SqlQuery:
 def main():
     # sql = SqlQuery()
     data = SqlQuery.query_psql("Select * from producteurs")
+    data = SqlQuery.read_csv('SerieTemporelles/Data/', 'classeur.csv')
     print(data)
     # SqlQuery.yield_query_by_chunks("SELECT * FROM producteurs", 10, "polen", "kSnRLvf0KB32M0m", "data-db.enercoop.infra", 5432, "polen")
 

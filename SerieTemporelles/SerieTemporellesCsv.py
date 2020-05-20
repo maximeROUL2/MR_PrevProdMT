@@ -1,14 +1,11 @@
-from math import sqrt
-
 import matplotlib
+import pandas
 import statsmodels
 import statsmodels.api as sm
-from conn_data import SqlQuery
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
-from sklearn.metrics import mean_squared_error
 
 """
 Entree : dataframe = la dataframe globale à analyser
@@ -24,7 +21,7 @@ Sortie : Graphique_production = affichage simple de la série
 """
 
 
-class serie_temporelles_csv_affichage():
+class SerieTemporellesCsv():
 
     def __init__(self, dataframe, nomColoneDate, coloneAnalyser):
         self.data = dataframe
@@ -71,7 +68,7 @@ class serie_temporelles_csv_affichage():
 
 
 def main():
-    df = serie_temporelles_csv_affichage(SqlQuery.read_csv('classeur.csv'), 'Date', 'Production')
+    df = SerieTemporellesCsv(pandas.read_csv('Data/classeur.csv'), 'Date', 'Production')
     print(df.analyse_erreur_holt_winters(24))
     df.graphique_prod()
     df.decompose_affichage()
