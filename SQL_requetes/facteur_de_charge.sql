@@ -6,3 +6,8 @@ create materialized view facteur_de_charge as
 	where pr.padt = cast(rp12.padt as text)
 	order by padt, month
 
+
+select round(avg(facteur_de_charge_approximatif)), month, code_departement, type_de_centrale 
+from facteur_de_charge3
+group by month, code_departement, type_de_centrale
+order by month
