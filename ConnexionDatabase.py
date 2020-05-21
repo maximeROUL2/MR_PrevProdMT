@@ -3,7 +3,18 @@ import pandas
 from sqlalchemy import create_engine
 
 
-class SqlQuery:
+""" 
+ENTREE : une requête SQL et la connexion à la BDD d'enercoop du pôle énérgie
+        
+HYPOTHESES : Les mots de passe sont cryptées par la méthode keyring (https://pypi.org/project/keyring/)
+             On souhaite avoir un dataFrame en sortie pour les traitements futur
+             
+SORTIES : pandas_sql : le data frame lié à la requête 
+         pandas_sql_chunk : un dataframe par morceau pour un traitement optimisé
+         read_csv : la lecture d'un csv à partir du chemin et du fichier
+"""
+
+class ConnexionDatabase:
 
     def __init__(self, query):
         self.query = query
@@ -37,7 +48,7 @@ class SqlQuery:
 
 
 def main():
-    data = SqlQuery('select * from producteurs limit 100')
+    data = ConnexionDatabase('select * from producteurs limit 100')
     # print(data.pandas_sql())
     print(data.pandas_sql_chunk(10))
 
