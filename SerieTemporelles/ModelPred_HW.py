@@ -17,7 +17,7 @@ Hypothéses : On utilise le modéle de Holt Winters (Lissage Exponentionnel opti
 qui approxime la tendance et la saisonalité optimum quiconvient à la série 
 en prenant plus en compte plus le passé récent que le lointain       
 
-Sortie : predictions = retourne les X predictions de la série
+Sorties : predictions = retourne les X predictions de la série
          HW = affiche dans le terminal et retourne les erreurs du modéle (MSE, RMSE et %)
         Affichage = Une affichage des predictions future et un affichage 
 des predictions superposés au reel sur le X derniéres valeurs

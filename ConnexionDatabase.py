@@ -16,27 +16,26 @@ SORTIES : pandas_sql : le data frame lié à la requête
 
 class ConnexionDatabase:
 
-    def __init__(self, query):
-        self.query = query
+    def __init__(self):
         self.host = "data-db.enercoop.infra"
         self.database = keyring.get_password("system", "database")
         self.user = keyring.get_password("system", "username")
         self.pwd = keyring.get_password("system", "password")
         self.port = 5432
 
-    def pandas_sql(self):
+    def pandas_sql(self, query):
         engine = create_engine("postgresql://{}:{}@{}:{}/{}".format(self.user, self.pwd, self.host, self.port,
                                                                     self.database),
                                execution_options=dict(stream_results=True))
-        data = pandas.read_sql_query(self.query, engine)
+        data = pandas.read_sql_query(query, engine)
 
         return data
 
-    def pandas_sql_chunk(self, chunksize):
+    def pandas_sql_chunk(self, query, chunksize):
         engine = create_engine("postgresql://{}:{}@{}:{}/{}".format(self.user, self.pwd, self.host, self.port,
                                                                     self.database),
                                execution_options=dict(stream_results=True))
-        for df_chunk in pandas.read_sql_query(self.query, engine, chunksize=chunksize):
+        for df_chunk in pandas.read_sql_query(query, engine, chunksize=chunksize):
             yield df_chunk
         engine.dispose()  # closes the thread
 
@@ -49,8 +48,8 @@ class ConnexionDatabase:
 
 def main():
     data = ConnexionDatabase('select * from producteurs limit 100')
-    # print(data.pandas_sql())
-    print(data.pandas_sql_chunk(10))
+    print(data.pandas_sql())
+    # print(data.pandas_sql_chunk(10))
 
 
 if __name__ == "__main__":
