@@ -33,3 +33,8 @@ select avg(facteur_de_charge) as FC_moyen,
                                  from facteur_de_charge
                                 where type_de_centrale = 'HY'
                                 group by annee, padt
+
+select count(padt), month, type_de_centrale
+from facteur_de_charge
+group by month, type_de_centrale
+order by month, type_de_centrale

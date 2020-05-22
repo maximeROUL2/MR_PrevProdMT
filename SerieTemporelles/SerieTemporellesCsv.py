@@ -2,7 +2,6 @@ import matplotlib
 import pandas
 import statsmodels
 import statsmodels.api as sm
-from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
