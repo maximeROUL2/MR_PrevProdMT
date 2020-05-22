@@ -59,7 +59,7 @@ class statistiques:
                   round(df.std(axis = 0, skipna = False).loc['facteur_de_charge'], 2))
 
 
-def main()
+def main():
     appel = statistiques("HY") # le code n'est pas modulaire
     appel.P90_P80_P50_annuel()
     appel.ecart_type_mensuel()
