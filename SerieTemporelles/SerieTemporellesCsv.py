@@ -28,6 +28,7 @@ class SerieTemporellesCsv():
         self.analyse = self.data[coloneAnalyser]
         self.analyseBis = self.data[[nomColoneDate, coloneAnalyser]]
 
+
     def affichage_serie(self):
         result = sm.tsa.seasonal_decompose(self.analyse, model='add', period=12)
         result.plot()

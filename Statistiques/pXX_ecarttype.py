@@ -1,6 +1,3 @@
-from typing import List, Any
-
-import pandas
 from MR_PrevProdMT.ConnexionDatabase import ConnexionDatabase
 
 """
