@@ -38,3 +38,12 @@ select count(padt), month, type_de_centrale
 from facteur_de_charge
 group by month, type_de_centrale
 order by month, type_de_centrale
+
+
+#Recuperer les facteurs de charge par departement par type pour croiser à l etat
+select avg(facteur_de_charge) as fc_moyen, month, cast(departement as text), type_de_centrale 
+from facteur_de_charge2
+group by month, departement, type_de_centrale
+order by month
+
+
