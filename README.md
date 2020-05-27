@@ -25,3 +25,17 @@ if __name__ == "__main__":
 - Utilisation de Git Régulièrement pour versionner et référencer l'avancé du travail 
 
 - UNE REGLE : Simplicité de la Documentation et possibilité de MAJ rapide en production 
+
+# Source de données 
+
+Pour le secteur hydraulique les données Enercoop étant suffissament riche nous avons décider de traiter le fichier par_centrale_validé.ods de la branche RPM qui est mis à jour pour les nouveaux clients du perimétre. 
+
+https://clood.enercoop.org/index.php/apps/files/?dir=/Approvisionnement%20-%20REZO%20%20-%20Priv%C3%A9/Appro%20EN/01_RPM/historique_production&fileid=18812464
+
+Concernant le photovltaique et l'éolien nous allons travailler sur les données en open data des facteurs de charges par région et les comparer aux données (très récentes) d'enercoop sur les secteurs.
+
+https://opendata.reseaux-energies.fr/explore/dataset/fc-tc-regionaux-mensuels-eolien-solaire/information/?disjunctive.region
+
+Bien évidémment nous complétons avec les flux RP12 de la BDD Data-etl-polen des producteurs et nous négligeons les flux RP9 qui correspondent à des taux très faibles pour l'éolien et l'hydrau. 
+Pour le PV cela représente ~25% des fluxs et il y a aussi beaucoup d'autoconsomation donc il faudra rajouter ces paramétres. 
+
