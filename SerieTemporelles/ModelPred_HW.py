@@ -5,7 +5,7 @@ from statsmodels.tsa.holtwinters import ExponentialSmoothing
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
-from MR_PrevProdMT.SerieTemporelles.SerieTemporellesCsv import SerieTemporellesCsv
+from MR_PrevProdMT.SerieTemporelles.SerieTemporelles import SerieTemporelles
 
 """
 Entree : dataframe = la dataframe globale à analyser
@@ -23,16 +23,16 @@ Sorties : predictions = retourne les X predictions de la série
 des predictions superposés au reel sur le X derniéres valeurs
 """
 
-class HoltWinters(SerieTemporellesCsv):
+class HoltWinters(SerieTemporelles):
 
     def __init__(self, nbpred, df, coloneDate, coloneAnalyser):
-        SerieTemporellesCsv.__init__(self, df, coloneDate, coloneAnalyser)
-        self.model = ExponentialSmoothing(self.analyse,
+        SerieTemporelles.__init__(self, df, coloneDate, coloneAnalyser)
+        self.model = ExponentialSmoothing(self.serie,
                                           seasonal_periods=12, trend='add', seasonal='add', damped=True).fit(
             use_boxcox=True)
 
         self.nbPredictions = nbpred
-        self.modelTest = ExponentialSmoothing(self.analyse[:-self.nbPredictions],
+        self.modelTest = ExponentialSmoothing(self.serie[:-self.nbPredictions],
                                               seasonal_periods=12, trend='add', seasonal='add', damped=True).fit(
             use_boxcox=True)
 
@@ -42,19 +42,19 @@ class HoltWinters(SerieTemporellesCsv):
 
     def HW_erreurs(self):
         predictions = self.modelTest.forecast(self.nbPredictions)
-        erreurs = SerieTemporellesCsv.analyse_erreur(
-            self.nbPredictions, predictions, self.analyse.tail(self.nbPredictions))
+        erreurs = SerieTemporelles.analyse_erreur(
+            self.nbPredictions, predictions, self.serie.tail(self.nbPredictions))
 
         return erreurs
 
     def affichage_predfutur(self):
         plt.figure()
-        self.analyse.plot(style='--', marker='o', color='black', legend=True)
+        self.serie.plot(style='--', marker='o', color='black', legend=True)
         self.predictions().plot(style='--', marker='o', color='green', legend=True)
 
     def affichage_pred_cache(self):
         plt.figure()
-        self.analyse.plot(style='--', marker='o', color='black', legend=True)
+        self.serie.plot(style='--', marker='o', color='black', legend=True)
 
         predictions = self.modelTest.forecast(self.nbPredictions)
         predictions.plot(style='--', marker='o', color='green', legend=True)

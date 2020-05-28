@@ -3,7 +3,7 @@ import unittest
 import pandas
 import numpy
 
-from MR_PrevProdMT.SerieTemporelles.SerieTemporellesCsv import SerieTemporellesCsv
+from MR_PrevProdMT.SerieTemporelles.SerieTemporelles import SerieTemporelles
 
 class TestSerieTemporellesCsv(unittest.TestCase):
 
@@ -13,7 +13,7 @@ class TestSerieTemporellesCsv(unittest.TestCase):
                           ['01-02-2007', 3], ['01-02-2007', 4], ['01-02-2007', 5],['01-02-2007', 6]])
         df = pandas.DataFrame(ar, columns=['Date', 'Serie'])
 
-        self.appel = SerieTemporellesCsv(df, 'Date', 'Serie')
+        self.appel = SerieTemporelles(df, 'Date', 'Serie')
 
     def test_erreur_holt_winters(self):
         """Test de la fonction holt_winters"""

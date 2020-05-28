@@ -1,3 +1,5 @@
+import io
+
 import keyring
 import pandas
 from sqlalchemy import create_engine
@@ -61,6 +63,15 @@ class ConnexionDatabase:
 
         cursor.close()
 
+    def write_database_opti(self, dataframe, table): # TODO pas fonctionnel mais sans erreur du terminal
+        sio = io.StringIO()
+        sio.write(dataframe.to_csv(sep=";", quotechar="\"", escapechar='\\', index=False))
+
+        cursor = self.connection.cursor()
+        cursor.copy_from(sio, table, sep=";")
+        sio.seek(0)
+        self.connection.commit()
+        cursor.close()
 
 def main():
     data = ConnexionDatabase()

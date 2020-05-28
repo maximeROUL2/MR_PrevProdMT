@@ -20,26 +20,27 @@ Sortie : Graphique_production = affichage simple de la série
 """
 
 
-class SerieTemporellesCsv():
+class SerieTemporelles:
 
     def __init__(self, dataframe, nomColoneDate, coloneAnalyser):
         self.data = dataframe
-        self.date = self.data[nomColoneDate]
-        self.analyse = self.data[coloneAnalyser]
-        self.analyseBis = self.data[[nomColoneDate, coloneAnalyser]]
+        self.dates = self.data[nomColoneDate]
+        self.serie = self.data[coloneAnalyser]
+        self.serie_date = self.data[[nomColoneDate, coloneAnalyser]]
+        self.periode = 12
 
 
     def affichage_serie(self):
-        result = sm.tsa.seasonal_decompose(self.analyse, model='add', period=12)
+        result = sm.tsa.seasonal_decompose(self.serie, model='add', period=self.periode)
         result.plot()
 
     def decompose_result(self):
-        result = sm.tsa.seasonal_decompose(self.analyse, model='add', period=12)
-        return result.trend, result.seasonal[0:11], result.resid, result.observed
+        result = sm.tsa.seasonal_decompose(self.serie, model='add', period=self.periode)
+        return result.trend, result.seasonal[0:self.periode-1], result.resid, result.observed
 
     def graphique_serie_date(self):
-        self.analyseBis.set_index("Date", inplace=True)
-        self.analyseBis.plot(figsize=(12, 4))
+        self.serie_date.set_index("Date", inplace=True)
+        self.serie_date.plot(figsize=(12, 4))
 
     @staticmethod
     def analyse_erreur(nbpredictions, predictions, reel):
@@ -58,7 +59,7 @@ class SerieTemporellesCsv():
 
 
 def main():
-    df = SerieTemporellesCsv(pandas.read_csv('Data/classeur.csv'), 'Date', 'Production')
+    df = SerieTemporelles(pandas.read_csv('Data/classeur.csv'), 'Date', 'Production')
     df.graphique_serie_date()
     df.affichage_serie()
     plt.show()
