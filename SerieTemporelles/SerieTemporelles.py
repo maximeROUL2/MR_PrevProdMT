@@ -23,11 +23,12 @@ Sortie : Graphique_production = affichage simple de la série
 class SerieTemporelles:
 
     def __init__(self, dataframe, nomColoneDate, coloneAnalyser):
-        self.data = dataframe
+        self.data = dataframe.sort_values(by=nomColoneDate).reset_index()
         self.dates = self.data[nomColoneDate]
         self.serie = self.data[coloneAnalyser]
         self.serie_date = self.data[[nomColoneDate, coloneAnalyser]]
         self.periode = 12
+        self.nomdate = nomColoneDate
 
 
     def affichage_serie(self):
@@ -39,7 +40,7 @@ class SerieTemporelles:
         return result.trend, result.seasonal[0:self.periode-1], result.resid, result.observed
 
     def graphique_serie_date(self):
-        self.serie_date.set_index("Date", inplace=True)
+        self.serie_date.set_index(self.nomdate, inplace=True)
         self.serie_date.plot(figsize=(12, 4))
 
     @staticmethod

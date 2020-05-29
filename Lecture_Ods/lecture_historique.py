@@ -26,11 +26,14 @@ SORTIES : L'insertion de toute les lignes 9 et + de toutes les pages du fichiers
 class LectureHistoriqueOds:
 
     def __init__(self):
-        self.workbook = xlrd.open_workbook('Data/par_centrale_validé_2020_05_04.xlsx')
+        self.opendata = pandas.read_csv(
+'/home/maxime.roul/PycharmProjects/Previsiont_MT2/MR_PrevProdMT/Lecture_Ods/Data/fc-tc-regionaux-mensuels-eolien-solaire.csv')
+
+        self.workbook = xlrd.open_workbook(
+'/home/maxime.roul/PycharmProjects/Previsiont_MT2/MR_PrevProdMT/Lecture_Ods/Data/par_centrale_validé_2020_05_04.xlsx')
         self.sheetnames = self.workbook.sheet_names()
         self.lignedebut = 9
 
-        self.opendata = pandas.read_csv('Data/fc-tc-regionaux-mensuels-eolien-solaire.csv')
 
     def pandas_lecture(self, sheetname):
         df = pandas.read_excel(self.workbook, sheetname,
