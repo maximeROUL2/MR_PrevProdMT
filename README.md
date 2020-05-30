@@ -4,25 +4,26 @@ Le projet peut aussi être suivi via un Trello qui référence l'avancée du pro
 
 La première étape consiste en la visualisation de l'état actuel des choses et  l'évolution du champ des producteurs d'Enercoop par rapport au passé pour ensuite mieux prédire le futur sur des bases mathématiques plus solide. 
 
-On va tester notre nouvelle branche pour s'exercer ! 
-
-On change via pycharm
-
 # Charte du code 
 
-- Tous les objets qui peuvent être réutiliser de nombreuses fois sont dans la bibliothèque "tools"
+l'ensemble des méthodes de charte du code est référencé dans ce cours de 4 heures 
+https://openclassrooms.com/fr/courses/4425111-perfectionnez-vous-en-python/exercises/1668
 
-- Un fichier = une classe + une éventuelle fonction main et un appel de cette fonction avec la condition
+- Nous travaillons dans un environement virtuel et il suffit d'appeller pip install -r requirements.txt pour mettre à jour l'environement virtuel chez vous avec toute les dépendances des librairies
 
-if __name__ == "__main__":
+- Un fichier = une classe + une éventuelle fonction main et un appel (d'essai) de cette fonction avec la condition
+
+if __name__ == "__main__": qui s"appelle que lorsque on lance directement ce fichier et est donc fait pour les tests lié à la classe du fichier
+
+- Les commentaires sont réalisé en haut de chaque classe et référence les entrées, les sorties et les hypothéses lié au programme. Ceux ci doivent toujours être à jour ! 
 
 - Des tests unitaires sur chaque objet / test d'erreurs régulièrement (try / except)
 
-- TUtilisation d'une machine virtuelle qui centralise les versions des biliothéques dans un fichier requirements.txt
-
-- En utilisant pycharm on respecte les normes python PIP8 
+- En utilisant pycharm on respecte les normes python PIP8 et la philosophie Pyhton PIP20 => import this dans un terminal python
 
 - Utilisation de Git Régulièrement pour versionner et référencer l'avancé du travail 
+
+- Une modélisation UML du code est disponible dans le fichier Projet_PrevMT.vpd.png
 
 - UNE REGLE : Simplicité de la Documentation et possibilité de MAJ rapide en production 
 
