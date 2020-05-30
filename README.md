@@ -10,10 +10,10 @@ La première étape consiste en la visualisation de l'état actuel des choses et
 - Concernant les chemins vers les fichiers ils sont pour l'instant valables que pour ma machine 'maxime.roul' il faut donc les modfier pour l'instant avec vos propres chemin pour qu'ils fonctionnent
 - Pour installer les librairies à jour il faut ouvrir un environement virtuel 
 
-    pip install virtualenv #installer la librairie d'environement virtuel (une chambre dans le PC)
-    virtualenv -p python3 env # créer un espace pour l'environement virtuel
-    source env/bin/activate #Entrer dans la "chambre" et activer l'environement virtuel (env dnas le terminal)
-    pip install -r requirements.txt # Installer les dépendances 
+    - pip install virtualenv #installer la librairie d'environement virtuel (une chambre dans le PC)
+    - virtualenv -p python3 env # créer un espace pour l'environement virtuel
+    - source env/bin/activate #Entrer dans la "chambre" et activer l'environement virtuel (env dnas le terminal)
+    - pip install -r requirements.txt # Installer les dépendances 
 
  - Ensuite le code est lancable que à partir de pycharm et de son runneur (Je ne sais pas trop pourquoi mais les appels à partir du terminal ne fonctionne pas où je ne connais pas encore les paramétres pour que les importations soit correctement dirigé notamment) 
 
