@@ -25,6 +25,8 @@ if __name__ == "__main__": qui s"appelle que lorsque on lance directement ce fic
 
 - Une modélisation UML du code est disponible dans le fichier Projet_PrevMT.vpd.png
 
+- On utilise les générators avec le mot clef yield pour réduire l'espace mémoire lors des appels de fonctions
+
 - UNE REGLE : Simplicité de la Documentation et possibilité de MAJ rapide en production 
 
 # Source de données 
