@@ -15,7 +15,7 @@ https://openclassrooms.com/fr/courses/4425111-perfectionnez-vous-en-python/exerc
 
 if __name__ == "__main__": qui s"appelle que lorsque on lance directement ce fichier et est donc fait pour les tests lié à la classe du fichier
 
-- Les commentaires sont réalisé en haut de chaque classe et référence les entrées, les sorties et les hypothéses lié au programme. Ceux ci doivent toujours être à jour ! 
+- Les commentaires sont réalisé en haut de chaque classe et référence les entrées, les sorties et les hypothéses lié au programme. Ceux ci doivent toujours être à jour ! (Malheuresement en français car c'est beaucoup plus simple pour moi)
 
 - Des tests unitaires sur chaque objet / test d'erreurs régulièrement (try / except)
 
